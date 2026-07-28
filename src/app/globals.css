@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Bedar brand design tokens.
+  Palette (from brand identity):
+    - Deep background : #022124  -> hsl(185 90% 7%)
+    - Muted teal      : #407479  -> hsl(185 31% 36%)
+    - Light mint      : #a9e1d3  -> hsl(165 48% 77%)
+    - Mint text       : #d9f6ef  -> hsl(165 62% 91%)
+  shadcn semantic tokens are HSL triplets so they compose with `hsl(var(--x) / <alpha>)`.
+*/
+
+@layer base {
+  :root {
+    /* Theme-independent raw brand tokens */
+    --brand-deep: 185 90% 7%;
+    --brand-teal: 185 31% 36%;
+    --brand-mint: 165 48% 77%;
+    --brand-mint-soft: 165 52% 88%;
+
+    /* Light surface theme (default) — readable content, blog, admin */
+    --background: 165 40% 99%;
+    --foreground: 185 90% 7%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 185 90% 7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 185 90% 7%;
+
+    --primary: 185 90% 7%;
+    --primary-foreground: 165 62% 91%;
+
+    --secondary: 165 48% 77%;
+    --secondary-foreground: 185 90% 10%;
+
+    --muted: 165 30% 95%;
+    --muted-foreground: 185 16% 38%;
+
+    --accent: 185 31% 36%;
+    --accent-foreground: 165 62% 91%;
+
+    --destructive: 0 72% 48%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 175 22% 88%;
+    --input: 175 22% 88%;
+    --ring: 185 31% 36%;
+
+    --radius: 0.9rem;
+  }
+
+  .dark {
+    /* Deep teal brand theme — hero/immersive surfaces & full dark mode */
+    --background: 185 90% 7%;
+    --foreground: 165 62% 91%;
+
+    --card: 185 78% 10%;
+    --card-foreground: 165 62% 91%;
+
+    --popover: 185 78% 10%;
+    --popover-foreground: 165 62% 91%;
+
+    --primary: 165 48% 77%;
+    --primary-foreground: 185 90% 8%;
+
+    --secondary: 185 31% 22%;
+    --secondary-foreground: 165 62% 91%;
+
+    --muted: 185 45% 14%;
+    --muted-foreground: 165 25% 72%;
+
+    --accent: 185 31% 36%;
+    --accent-foreground: 165 62% 91%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 185 32% 18%;
+    --input: 185 32% 20%;
+    --ring: 165 48% 77%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Logical-property friendly focus ring for RTL */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  ::selection {
+    background-color: hsl(var(--brand-mint));
+    color: hsl(var(--brand-deep));
+  }
+}
+
+@layer components {
+  /* Immersive deep-teal section, independent of the active theme. */
+  .brand-surface {
+    background-color: hsl(var(--brand-deep));
+    color: hsl(var(--brand-mint-soft));
+  }
+
+  .brand-gradient {
+    background:
+      radial-gradient(
+        1200px 600px at 85% -10%,
+        hsl(var(--brand-teal) / 0.45),
+        transparent 60%
+      ),
+      radial-gradient(
+        900px 500px at 0% 110%,
+        hsl(var(--brand-mint) / 0.18),
+        transparent 55%
+      ),
+      hsl(var(--brand-deep));
+  }
+
+  /* Constrained content column used across the site. */
+  .container-page {
+    @apply container mx-auto px-5 sm:px-6 lg:px-8;
+  }
+
+  /* Mint gradient text accent. */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      hsl(var(--brand-mint)),
+      hsl(165 55% 70%)
+    );
+  }
+
+  /* Film-grain overlay for immersive surfaces (pure SVG, no asset). */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Dotted grid texture for dark sections. */
+  .dot-grid {
+    background-image: radial-gradient(
+      hsl(var(--brand-mint) / 0.14) 1px,
+      transparent 1px
+    );
+    background-size: 26px 26px;
+  }
+
+  /* Soft aurora blob used inside `brand-gradient` heroes. */
+  .aurora-blob {
+    @apply pointer-events-none absolute rounded-full blur-3xl;
+    background: radial-gradient(
+      circle at center,
+      hsl(var(--brand-teal) / 0.55),
+      transparent 65%
+    );
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}

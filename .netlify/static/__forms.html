@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ar">
+  <head><meta charset="utf-8" /><title>Netlify form definitions</title></head>
+  <body>
+    <!-- Static form declaration so Netlify Forms detects the fields at deploy
+         time. The React form POSTs urlencoded data to this path. -->
+    <form name="hackathon-registration" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="text" name="gender" />
+      <input type="text" name="whatsapp" />
+      <input type="text" name="linkedin" />
+    </form>
+  </body>
+</html>

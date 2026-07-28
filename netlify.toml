@@ -1,0 +1,10 @@
+[build]
+command = "npm run build"
+
+[build.environment]
+# Pin a Netlify-supported functions runtime (local Node 24 produces
+# a nodejs24.x function bundle that the platform silently drops).
+NODE_VERSION = "22"
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"
